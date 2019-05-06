@@ -1,0 +1,14 @@
+create table ex3_2(
+emp_id number,
+emp_name varchar2(100));
+
+alter table ex3_2 add emp_salary number;
+
+insert into ex3_2(emp_salary) select salary from employees where salary>5000;
+
+insert into ex3_2(emp_id,emp_name) select employee_id,emp_name from employees where salary>5000;
+
+select * from ex3_2;
+
+update ex3_2 set emp_salary = 50;
+

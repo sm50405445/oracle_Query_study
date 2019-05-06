@@ -1,0 +1,37 @@
+select abs(10), abs(-10), abs(-10.123) from dual;
+
+/*첫글자는 대문자로*/
+select INITCAP('the soap'), initcap('never say good bye') from dual;
+/*모두 소문자로*/
+select lower('NEVER SAY GOODBYE'), upper('never say goodbye') from dual;
+/*글자 이어 붙이기*/
+select concat('I have', ' a dream'), 'I Have' || ' a dream' from dual;
+/*문자열 인덱스부터 골라가져오기*/
+select substr('ABCDEFG',1,4), substr('ABCDEFG',-1,4) from dual;
+/*해당 바이트만큼 문자열 추출*/
+select substrb('ABCDEFG',1,4), substrb('우리나라만세',1,4) FROM dual;
+/*문자열 왼쪽 및 오른쪽에서 제거후 반환*/
+select LTRIM('ABCDEFGABC','ABC'),LTRIM('가나다라','가'),
+RTRIM('ABCDEFGABC','ABC'),RTRIM('가나다라','라') FROM DUAL;
+/*매개변수로 들어온 문자열 N자리 만큼 왼쪽부터 채움*/
+CREATE TABLE ex4_1(
+phone_num varchar2(30));
+
+insert into ex4_1 values('111-1111');
+insert into ex4_1 values('111-2222');
+insert into ex4_1 values('111-3333');
+
+select lpad(phone_num,12,'(02)') from ex4_1;
+/*해당 글자 바꿈*/
+select replace('나는 너를 모르는데 너는 나를 알겠는가?','나','너') from dual;
+/*문자열 전체에 공백 제거하기*/
+select ltrim(' ABC DEF '),rtrim(' ABC DEF '),replace(' ABC DEF ', ' ', '') from dual;
+
+/*날짜 함수*/
+select sysdate, systimestamp from dual;
+
+/*매개변수 날짜에 integer 만큼의 월을 더함*/
+select add_months(sysdate,1), add_months(sysdate,-1) from dual;
+
+/*숫자함수이면서 날짜함수로도 round-반올림, trunc-버림*/
+select sysdate, round(sysdate,'month'),trunc(sysdate,'month') from dual;

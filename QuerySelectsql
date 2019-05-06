@@ -1,0 +1,6 @@
+select employee_id, emp_name from employees where salary>5000 order by employee_id;
+
+select employee_id, emp_name from employees where salary>5000 and job_id = 'IT_PROG' order by employee_id;
+
+select a.employee_id, a.emp_name, a.department_id, b.department_name from employees a, departments b where
+a.department_id = b.department_id;

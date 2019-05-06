@@ -1,0 +1,39 @@
+create table ex3_6(
+employee_id number,
+employee_name varchar2(30),
+employee_amt number,
+manager_id number);
+
+drop table ex3_6;
+
+select * from employees;
+select * from ex3_6;
+
+insert into ex3_6(employee_id,employee_name,employee_amt,manager_id) 
+select a.employee_id,a.emp_name,a.salary,a.manager_id from employees a
+where a.manager_id=124 and a.salary between 2000 and 3000;
+
+delete ex3_3;
+
+insert into ex3_3(employee_id)
+select e.employee_id from employees e, sales s
+where e.employee_id = s.employee_id and
+s.sales_month between '200010' and '200012' group by e.employee_id;
+
+select * from ex3_3;
+
+merge into ex3_3 d
+using (select employee_id,salary from employees where manager_id=145)e
+on (d.employee_id=e.employee_id)
+when matched then
+update set d.bonus_amt = d.bonus_amt + e.salary*0.01
+when not matched then
+insert (d.employee_id,d.bonus_amt) values(e.employee_id,e.salary*0.005);
+
+select employee_id,emp_name  from employees where commission_pct is null;
+
+select employee_id, salary from employees where salary>2000 and salary<2500 order by employee_id;
+
+select employee_id, salary from employees where salary in(2000,3000,4000) order by employee_id;
+
+select employee_id, salary from employees where salary <> all(2000,3000,4000) order by employee_id;

@@ -1,0 +1,56 @@
+select * from employees;
+
+select to_char(hire_date,'yyyy') hire_years, count(*) from employees
+group by to_char(hire_date,'yyyy')
+order by to_char(hire_date,'yyyy');
+
+select * from kor_loan_status;
+
+select period,region,sum(loan_jan_amt) from kor_loan_status
+where period like '2012%'
+group by period,region
+order by period,region;
+
+select period,gubun,sum(loan_jan_amt) from kor_loan_status
+where period like '2013%'
+group by period,gubun
+union
+select period,'',sum(loan_jan_amt) from kor_loan_status
+where period like '2013%'
+group by period;
+
+select period, case when gubun='주택담보대출' then sum(loan_jan_amt) else 0 end 주택담보대출액,
+case when gubun='기타대출' then sum(loan_jan_amt) else 0 end 기타대출액
+from kor_loan_status where period='201311' group by period,gubun;
+
+select period, sum(loan_jan_amt) 주택담보대출액,0 기타대출액 from kor_loan_status
+where period='201311' and gubun='주택담보대출'
+group by period, gubun
+union all
+select period, 0 주택담보대출액, sum(loan_jan_amt) 기타대출액 from kor_loan_status
+where period='201311' and gubun='기타대출'
+group by period, gubun;
+
+select * from kor_loan_status;
+
+select region,
+sum(amt1) as "201111",
+sum(amt2) as "201112",
+sum(amt3) as "201210",
+sum(amt4) as "201211",
+sum(amt5) as "201212",
+sum(amt6) as "201310",
+sum(amt7) as "201311"
+from(
+    select region,
+        case when period='201111' then loan_jan_amt else 0 end amt1,
+        case when period='201112' then loan_jan_amt else 0 end amt2,
+        case when period='201210' then loan_jan_amt else 0 end amt3,
+        case when period='201211' then loan_jan_amt else 0 end amt4,
+        case when period='201212' then loan_jan_amt else 0 end amt5,
+        case when period='201310' then loan_jan_amt else 0 end amt6,
+        case when period='201311' then loan_jan_amt else 0 end amt7
+    from kor_loan_status
+) group by region order by region;
+
+

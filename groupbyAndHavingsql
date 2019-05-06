@@ -1,0 +1,45 @@
+select * from kor_loan_status;
+
+/*해당 칼럼들이 그룹으로 묶여 있는 경우 다음과 같이 그룹별 묶음을 실행할 수 있다. group by*/
+select period, region, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by period, region
+order by period, region;
+
+/*오류남 집계함수를 제외한 모든 컬럼들을 group by 조건에 명시해야함*/
+select period, region, sum(loan_jan_amt) totl_jan
+from kor_loan_status
+where period='201311'
+group by region
+order by region;
+
+/*having 필터 조건 함수식에서 어떤 조건을 추가하기*/
+select period, region, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period='201311'
+group by period, region
+having sum(loan_jan_amt) > 100000
+order by region;
+
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by period, gubun
+order by period;
+
+/*해당 집계함수를 집계하는 또다른 칼럼을 제시 rollup*/
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by rollup(period,gubun);
+
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by rollup(period), gubun;
+
+/*해당 명시한 그룹별로 아래에서 위로 말아올려진 형태 group으로 묶은 것을 기준으로 말아올림*/
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by cube(period, gubun);
+
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by period, cube(gubun);
+

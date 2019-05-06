@@ -1,0 +1,33 @@
+select employee_id || '-' || emp_name AS employee_info
+from employees where rownum<5;
+
+select employee_id, salary,
+case when salary <= 5000 then 'Cµî±Þ'
+when salary > 5000 and salary <= 15000 then 'Bµî±Þ'
+else 'Aµî±Þ'
+end as salary_grade from employees;
+
+select employee_id, salary from employees where salary=any(2000,3000,4000) order by employee_id;
+
+select employee_id,salary from employees where salary = 2000 or salary=3000 or salary=4000 order by employee_id;
+
+select employee_id, salary from employees where not(salary>=2500) order by employee_id;
+
+select employee_id, salary from employees where salary between 2000 and 2500 order by employee_id;
+
+select department_id, department_name from departments a
+where exists (select * from employees b where a.department_id = b.department_id and b.salary>3000) order by a.department_name;
+
+select emp_name from employees where emp_name like 'A%' order by emp_name;
+
+create table ex3_5(
+names varchar2(30));
+
+insert into ex3_5 values('È«±æµ¿');
+insert into ex3_5 values('È«±æÀÚ');
+insert into ex3_5 values('È«±æ¼ø');
+insert into ex3_5 values('È«±æ¹Î');
+
+select names from ex3_5 where names like 'È«±æ%';
+select * from ex3_5 where names like 'È«±æ_';
+

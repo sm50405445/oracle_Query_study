@@ -1,0 +1,16 @@
+select LPAD(phone_number,16,'(02)') from employees;
+
+select * from employees;
+
+select employee_id,emp_name,hire_date,round((sysdate-hire_date)/365) from employees where 
+round((sysdate-hire_date)/365) >= 10 order by 3;
+
+select replace(cust_main_phone_number,'-','/') from customers;
+
+select cust_year_of_birth from customers;
+
+select cust_name,cust_year_of_birth,decode(trunc((to_char(sysdate,'yyyy')-cust_year_of_birth)/10),3,'30대',
+                                                                                                4,'40대',
+                                                                                                5,'50대',
+                                                                                                '기타')gen from customers;
+                                                    

@@ -1,0 +1,18 @@
+select * from employees;
+select * from job_history;
+select * from departments;
+select * from jobs;
+
+select a.employee_id as "사번",a.emp_name as "사원명",b.job_id as "job명칭",b.start_date as "job시작일자",
+b.end_date as "job종료일자",c.department_name as "job 수행부서명" from employees a,job_history b,departments c,jobs d where
+a.employee_id = b.employee_id and b.department_id = c.department_id and b.job_id = d.job_id and a.employee_id = 101;
+
+select a.employee_id, a.emp_name, b.job_id, b.department_id from employees a, job_history b
+where a.employee_id = b.employee_id(+)
+and a.department_id = b.department_id(+);
+
+select a.department_id, a.department_name from departments a inner join employees b on(a.department_id = b.department_id)
+where b.salary>3000 order by a.department_name;
+
+select a.department_id, a.department_name from departments a
+where a.department_id in (select department_id from job_history); 

@@ -1,0 +1,22 @@
+create table orders(
+order_id number(12,0) primary key,
+order_date date default sysdate,
+order_mode varchar2(8 byte) constraints modecheck check (order_mode in ('direct','online')),
+customer_id number(6,0),
+order_status number(2,0),
+order_total number(8,2) default 0,
+sales_rep_id number(6,0),
+promotion_id number(6,0));
+
+drop table orders;
+
+create sequence orders_seq
+increment by 1
+start with 1000
+minvalue 1
+maxvalue 999999999;
+
+insert into orders(order_id,order_mode,customer_id,order_status,sales_rep_id,promotion_id) values(orders_seq.nextval,'direct',1,1,1,1);
+insert into orders(order_id,order_mode,customer_id,order_status,sales_rep_id,promotion_id) values(orders_seq.nextval,'online',1,1,1,1);
+
+select * from orders;

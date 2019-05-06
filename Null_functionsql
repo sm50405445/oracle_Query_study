@@ -1,0 +1,18 @@
+/*nvl(n1,n2) nvl2((n1,n2,n3)) nvl n1이 null이면 n2 반환 nvl2 n1이 null 아니면 n2반환 null이면 n3반환*/
+select nvl(manager_id, employee_id) from employees where manager_id is null;
+
+select employee_id, nvl2(commission_pct, salary + (salary*commission_pct), salary) as salary2 from employees;
+
+/*해당 매개변수 인자 첫번째 값이 null이면 해당 값을 아니면 두번째 인자값 반환*/
+
+select employee_id, salary, commission_pct, coalesce (salary*commission_pct,salary) as salary2 from employees;
+
+/*nvl 활용 및 lnnvl- 매개변수로 들어오는 조건식의 결과가 false,unknown 이면 true, true이면 false 반환*/
+select count(*) from employees where nvl(commission_pct,0) < 0.2;
+select count(*) from employees where lnnvl(commission_pct>=0.2);
+
+select prod_id, decode(channel_id,3,'DIRECT',
+                                9,'DIRECT',
+                                5,'INDIRECT',
+                                4,'INDIRECT',
+                                    'Others') decodes from sales where rownum<10;

@@ -1,0 +1,4 @@
+select rownum, employee_id from employees;
+
+select rownum, employee_id, rowid from employees where rownum<5;
+

@@ -1,0 +1,14 @@
+create table exp_good_asia(
+country varchar2(10),
+seq number,
+goods varchar2(80));
+
+insert into exp_good_asia values('한국',1,'원유제외 석유류');
+insert into exp_good_asia values('한국',2,'자동차');
+insert into exp_good_asia values('한국',3,'원유제외 석유류');
+insert into exp_good_asia values('한국',4,'원유제외 석유류');
+insert into exp_good_asia values('한국',5,'원유제외 석유류');
+
+select period, gubun, sum(loan_jan_amt) totl_jan from kor_loan_status
+where period like '2013%'
+group by grouping sets(period, gubun);
